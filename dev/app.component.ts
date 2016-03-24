@@ -4,10 +4,8 @@ import {MySecondComponent} from './my-second-component.component';
 
 @Component({
     selector: 'app',
-    templateUrl: './app/app.template.html',
-    styleUrls: ['src/css/myComponent.css'],
+    templateUrl: './app/app.template.html',    
     directives: [MyComponentComponent, MySecondComponent]
 })
-export class AppComponent {
-    name = "Michael";
+export class AppComponent {  
 }

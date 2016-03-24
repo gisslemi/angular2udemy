@@ -1,11 +1,16 @@
 import {Component} from 'angular2/core';
+import {OnInit} from 'angular2/core';
 
 @Component({
     selector:'my-component',
-    template:`
-    <h3>this is my first component</h3>
-    `
+    templateUrl: './app/my-component.template.html', 
+    styleUrls: ['src/css/myComponent.css'],
 })
-export class MyComponentComponent {
+export class MyComponentComponent implements OnInit {
     
+      name : string;
+      
+      ngOnInit ():any {
+          this.name = "Michael";
+      }      
 }
