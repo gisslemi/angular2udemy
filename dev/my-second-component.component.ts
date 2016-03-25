@@ -2,9 +2,7 @@ import {Component} from 'angular2/core';
 
 @Component({
     selector: 'my-second-component',
-    template: `
-    <h3>this is my second component</h3>
-    `
+    templateUrl: 'app/my-second-component.template.html'
 })
 export class MySecondComponent {
     

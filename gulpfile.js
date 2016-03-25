@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var clean = require('gulp-rimraf');
 
 var assetsDev = 'assets/';
 var assetsProd = 'src/';
@@ -25,8 +26,14 @@ var imagemin = require('gulp-imagemin');
 
 var tsProject = typescript.createProject('tsconfig.json');
 
+gulp.task('clean', [], function() {
+  console.log("Clean all files in build folder");
+
+  return gulp.src(appProd + "/*", { read: false }).pipe(clean());
+});
+
 gulp.task('build-css', function () {
-    return gulp.src(assetsDev + 'scss/*.scss')
+    return gulp.src(assetsDev + 'scss/*.scss')                
         .pipe(sourcemaps.init())
         .pipe(postcss([precss, autoprefixer, cssnano]))
         .pipe(sourcemaps.write())
@@ -35,7 +42,7 @@ gulp.task('build-css', function () {
 });
 
 gulp.task('build-ts', function () {
-    return gulp.src(appDev + '**/*.ts')
+    return gulp.src(appDev + '**/*.ts')            
         .pipe(sourcemaps.init())
         .pipe(typescript(tsProject))
         .pipe(sourcemaps.write())
@@ -44,7 +51,7 @@ gulp.task('build-ts', function () {
 });
 
 gulp.task('build-img', function () {
-    return gulp.src(assetsDev + 'img/**/*')
+    return  gulp.src(assetsDev + 'img/**/*')        
         .pipe(imagemin({
             progressive: true
         }))
@@ -52,7 +59,7 @@ gulp.task('build-img', function () {
 });
 
 gulp.task('build-html', function () {
-    return gulp.src(appDev + '**/*.html')
+    return gulp.src(appDev + '**/*.html')        
         .pipe(gulp.dest(appProd));
 });
 
@@ -60,6 +67,7 @@ gulp.task('watch', function () {
     gulp.watch(appDev + '**/*.ts', ['build-ts']);
     gulp.watch(assetsDev + 'scss/**/*.scss', ['build-css']);
     gulp.watch(assetsDev + 'img/*', ['build-img']);
+    gulp.watch(appDev + '**/*.html', ['build-html'])
 });
 
-gulp.task('default', ['watch', 'build-ts', 'build-css']);
+gulp.task('default', ['clean','watch', 'build-html', 'build-ts', 'build-css']);
